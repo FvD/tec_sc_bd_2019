@@ -1,0 +1,26 @@
+---
+title: "Tarea Clase 1"
+author: "TEC San Carlos"
+date: "12/4/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Tarea 1
+
+Escoje una de los proyectos / retos que llegaron a la lista que hicimos en clase. Ahora en mas detalle describe lo siquiente:
+
+### Analisis
+
+ - Cuales son los retos para analisis en terminos de metodologia y capacidad de computo.
+ - Que tipo de soluciones necesitas para solucionarlo (puede ser conceptual, no necesariamente necesitas buscar la tecnologia existente para resolverlo).
+
+### Infraestructura
+
+ - Cuales son los retos infraestructurales para trabajar con este tipo de datos
+ - Que tipo de soluciones necesitas para solucionarlo (puede ser conceptual, no necesariamente necesitas buscar la tecnologia existente para resolverlo).
+ - Crea un diagrama de la solución como lo piensas (entrega la imagen o incluyela como imagen en el Rmarkdown).
+ 
