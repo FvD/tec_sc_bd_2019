@@ -1,0 +1,34 @@
+---
+title: "Tarea 2"
+author: "Curso Big Data TEC"
+date: "20191214"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+# Tarea sesión 2
+
+## Descripción tarea
+Lleva los datos ejemplo a una base de datos NoSQL de uno de los siguientes tipos (cualquier derivado comercial vale).
+
+ - Key-Value Store
+ - Document Store
+ - Graph Database
+
+Puedes escojer la tecnologia que quieras. La mayoría optó por trabajar con los datos de gobierno. Si eres una de las personas que no, por favor contacta al profesor para decidir sobre cuales datos vas a  trabajar.
+
+Documenta el proces en un documento RMarkdown, y despues usando la base de datos seleccionaste ejecuta los siguientes queries, dejando el código dentro del documento RMarkdown.
+
+ - Una lista de la cantidad de entradas por nacionalidad
+ - Para cada punto de entrada las 3 nacionalidades que entran y salen 
+
+## Entrega
+
+Antes de entregar has un render (knit) de tu Rmarkdown. Entrega por favor el HTML y el .Rmd por tec digital.
+
+Si trabajas con los datos de gobierno tienes completa disponibilidad de
+
+    https://movmigcr.ixpantia.com
+
+Para hacer incluir un repositorio propio dentro del proyecto para trabajar.
