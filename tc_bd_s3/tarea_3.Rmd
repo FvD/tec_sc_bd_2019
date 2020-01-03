@@ -1,0 +1,47 @@
+---
+title: "Tarea 3"
+author: "Curso Big Data TEC"
+date: "20191214"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+## Tarea sesión 3
+
+### Descripción tarea
+Levanta una instancia local de Spark ([siguiendo los pasos aqui]()) y ejecuta los siguientes pasos. Puedes usar el marco de codigo (el *chunk*) para incluir tu respuesta y enviar la tarea finalizada.
+
+
+## Copia datos
+
+Copia los datos 
+
+```{r}
+library(nycflights13)
+vuelos <- # aqui el codigo para copiar nycflights13::flights a Spark
+aerolineas <- # aqui el codigo para copiar nycflights13::airlines a Spark
+```
+
+Pregunta: 
+
+> Cuandos RDD creó el paso arriba?
+
+### Ejecuta un join sobre spark
+
+```{r}
+# join (sobre spark) de vuelos y aerolineas
+```
+
+### Ejecuta un group_by sobre spark
+
+```{r}
+# group_by por aerolinea reportando promedio de lo retrasos
+```
+
+pregunta:
+
+> Que pasa cuando cierras la sesión y la vuelves a abrir? 
+> estan los resultados que tenias antes aun en tu instancia de Spark? 
+> Explica lo que observas.
+
