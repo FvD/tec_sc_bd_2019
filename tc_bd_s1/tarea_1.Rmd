@@ -29,5 +29,9 @@ Descripción del proyecto: un ETL encargado de procesar información existente s
  El no contar con servidores o bases de datos lo suficientemente potentes puede implicar un problemas para el ETL debido a que tiene que procesar información que se genera diariamente y la ejecución de un día específico debe terminar ese mismo día. Aunque se solucione el problema infraestructural de la base de datos, los servidores y bases de datos deben poseer la capacidad necesaria y eso implica una inversión considerable.
  
  - Que tipo de soluciones necesitas para solucionarlo (puede ser conceptual, no necesariamente necesitas buscar la tecnologia existente para resolverlo).
+ - se desarrollo sobre la arquitectura que el cliente mencione
+ - manejar el daily sobre una memoria volatil
+ - Utilizar spark en lugar de airflow
+ 
  - Crea un diagrama de la solución como lo piensas (entrega la imagen o incluyela como imagen en el Rmarkdown).
  
