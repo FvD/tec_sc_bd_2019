@@ -1,0 +1,25 @@
+---
+title: "Tarea 5"
+author: "Curso Big Data TEC"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+## Tarea sesión 5
+
+### Descripción tarea
+En la clase hablamos sobre definiciones de conceptos, y tratamos de desmenuzar terminos que están comunmente en uso, pero cuya definicion no siempre es tan clara.
+
+## Tarea
+
+Siguiendo el ejercicio que hicimos en grupos en clase (y puedes re-utilizar tus notas) por favor escribe un definicion en tus propias palabras para los siguiente conceptos. Donde aplica, o donde aclara la definicion indica la relación con los demás conceptos.
+
+ - Business Intelligence
+ - Lago de datos
+ - Ciencia de Datos
+ - Ingenieria de datos
+ - Big Data
+ - ROLAP
+ - ETL
+ - Inteligencia Artificial
