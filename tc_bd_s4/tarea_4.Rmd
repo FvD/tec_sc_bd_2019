@@ -1,0 +1,61 @@
+---
+title: "Tarea 4"
+author: "Curso Big Data TEC"
+date: "20191214"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+## Tarea sesión 4
+
+### Descripción tarea
+En la clase vimos varias alternativas locales para parelizar procesos. Hay bastantes blogposts sobre el tema, pero es un poco disperso lo que esta disponible. 
+
+El clasico es el paquete parallel, que tiene mucho años (de hecho es parte de base R). Pero hay varias implementaciones mas como:
+
+- [foreach](https://cran.r-project.org/web/packages/foreach/vignettes/foreach.pdf)
+- [future](https://cran.r-project.org/web/packages/future/)
+- [furrr](https://cran.r-project.org/web/packages/furrr/)
+
+Pero hay mas como puedes ver en el [CRAN Task View sobre HPC y Parallel computing](https://cran.r-project.org/web/views/HighPerformanceComputing.html)
+
+## Tarea
+
+La tarea consiste en que evidencies que pudiste correr un proceso en parallelo sobre los datos que usamos en la tarea pasada.
+
+Puedes usar cualquier paquete y cualquier transformacion sobre los datos. pero tienes que mostrar el tiempo de ejecucion sin paralellizacion y el tiempo con tu solucion paralella en el Rmarkdown (con su HTML) que entregas.
+
+```{r}
+library(nycflights13)
+library( ... ) # aqui el paquete que decides usar
+
+system.time({
+  
+  # codigo sin paralelizar
+   
+})
+
+system.time({
+  
+  # codigo que corre paralelo
+   
+})
+```
+
+## Segunda implementacion
+
+```{r}
+library( ... ) # aqui el segundo paquete que decides usar
+
+system.time({
+  
+  # codigo sin paralelizar
+   
+})
+
+system.time({
+  
+  # codigo que corre paralelo
+   
+})
