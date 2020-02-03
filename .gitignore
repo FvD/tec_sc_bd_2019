@@ -35,6 +35,12 @@ vignettes/*.pdf
 
 # Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html
 rsconnect/
+.Rproj.user
 
 datos/
 
+
+logs/
+
+
+mov_mig_cr_parts/*

@@ -1,15 +1,14 @@
 ---
-title: "Tarea 2"
-author: "Curso Big Data TEC"
-date: "20191214"
+title: "Curso Big Data TEC: Tarea 2"
+author: "Brian Durán"
 output: html_document
 editor_options: 
   chunk_output_type: console
 ---
 
-# Tarea sesión 2
+<br>
 
-## Descripción tarea
+#### Descripción tarea
 Lleva los datos ejemplo a una base de datos NoSQL de uno de los siguientes tipos (cualquier derivado comercial vale).
 
  - Key-Value Store
@@ -23,12 +22,84 @@ Documenta el proces en un documento RMarkdown, y despues usando la base de datos
  - Una lista de la cantidad de entradas por nacionalidad
  - Para cada punto de entrada las 3 nacionalidades que entran y salen 
 
-## Entrega
 
-Antes de entregar has un render (knit) de tu Rmarkdown. Entrega por favor el HTML y el .Rmd por tec digital.
+### Llevar la información a una base de datos no relacional
 
-Si trabajas con los datos de gobierno tienes completa disponibilidad de
+<p align="justify">
+Al trabajar con los datos del gobierno decidí utilizar CouchDB para almacenar la información, esto porque existe una librería en R llamada **nodbi** que me permite solicitar la información a una base de datos en CouchDB y almacenarlos en un dataframe. Por lo tanto procedí a convertir el archivo Parquet con los datos del gobierno a un archivo CSV por medio de una librería de Python llamada **fastparquet**, una vez con el archivo CSV en mano, es posible cargarlo en CouchDB directamente con una paquete llamado **CouchImport**, el cual se obtiene por medio de NPM. El cargar la información en CouchDB me llevó varias horas, esto porque lo hice sobre un disco duro y no un SSD. Al final de todo este proceso se creo la siguiente base de datos:
+</p><br>
 
-    https://movmigcr.ixpantia.com
+ ![](mov_mig_cr_db.png)
 
-Para hacer incluir un repositorio propio dentro del proyecto para trabajar.
+<br>
+
+<p align="justify">
+Como puede observarse, ahora existe una base de datos de 22 GB y más de 31 millones de documentos. Cada documento tiene la siguiente estructura:
+</p>
+
+ ![](document_structure.png)
+
+<br>
+
+<p align="justify">
+Debido a la cantidad de documentos generados, implementar las consultas deseadas se volvió un proceso inmanejable, porque aunque se intente obtener la información por partes por medio de paginación u otro método, el procesamiento de la información tomaría varias horas y probablemente los recursos con los que cuento actualmente no son suficientes, principalmente por la cantidad de memoria RAM, la cual es 16 GB.
+</p>
+
+<p align="justify"> 
+A continuación se encuentra un ejemplo que tenía pensado utilizar para cargar la información desde CouchDB utilizando la librería **nodbi**:
+</p>
+
+```{r}
+# Cargar librerías
+# library(nodbi)
+# library(sofa)
+# -----------------------------------------------------------
+# Crea una conexión con CouchDB
+# src <- src_couchdb(user="admin", pwd="admin")
+# -----------------------------------------------------------
+# Obtiene los datos de la base de datos "mov_mig_cr" utlizando la conexión "src"
+# doc <- docdb_create(src, key="mov_mig_cr", value=df) # <-- equivalente a hacer un _all_docs
+```
+
+<br>
+
+### Consultas sobre los datos
+
+<br>
+
+<p align="justify"> 
+Como no me fue posible cargar los datos desde CouchDB a un dataframe para realizar las consultas con **dplyr**, he decidido cargar todos los datos del gobierno directamente en memoria utilzando el archivo Feather, lo cual si me fue posible.
+</p>
+
+```{r message=FALSE, warning=FALSE}
+library(dplyr)
+library(feather)
+```
+
+```{r}
+# Carga el archivo feather a un dataframe por medio de la libreria feather
+dtf <- read_feather("D:\\Documents\\mov_mig_cr\\mov_mig_cr.feather")
+```
+
+<b>Cantidad de entradas por nacionalidad</b>
+
+```{r}
+order_by_nac_id <- dtf %>%
+  filter(DET_MOV_CICLO_MIGRATORIO == "E") %>%
+  group_by(NAC_ID) %>%
+  count()
+
+order_by_nac_id
+```
+
+<b>Las 3 nacionalidades que más entran y salen para cada punto de entrada</b>
+ 
+```{r}
+ top_nac_in_out <- dtf %>%
+  group_by(PUE_ID_PUESTO_MIGRATORIO, NAC_ID) %>%
+  summarize(total = n()) %>%
+  arrange(desc(total), .by_group = TRUE, ) %>%
+  top_n(n = 3, wt = total)
+
+top_nac_in_out
+```
