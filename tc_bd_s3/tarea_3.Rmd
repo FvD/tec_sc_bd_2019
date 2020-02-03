@@ -1,67 +1,81 @@
 ---
-title: "Tarea 3"
-author: "Curso Big Data TEC"
-date: "20191214"
+title: "Curso Big Data TEC: Tarea 3"
+author: "Brian Durán"
 output: html_document
 editor_options: 
   chunk_output_type: console
 ---
 
-## Tarea sesión 3
+<br>
 
-### Descripción tarea
-Levanta una instancia local de Spark ([siguiendo los pasos aqui]()) y ejecuta los siguientes pasos. Puedes usar el marco de codigo (el *chunk*) para incluir tu respuesta y enviar la tarea finalizada.
+#### Descripción tarea
+Levanta una instancia local de Spark y ejecuta los siguientes pasos.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(nycflights13)
 library(sparklyr)
+library(dplyr)
 ```
 
-## Copia datos
+<br>
 
-Copia los datos 
+#### Copia datos
+
+<b>Inicar conexión con Spark</b>
 
 ```{r}
-vuelos <- # aqui el codigo para copiar nycflights13::flights a Spark
-aerolineas <- # aqui el codigo para copiar nycflights13::airlines a Spark
+sc <- spark_connect(master = "local")
 ```
 
-Pregunta: 
+<b>Copiar los datos a Spark RDD</b>
 
-<b> Cuandos RDD creó el paso arriba? </b>
-### Ejecuta un join sobre spark
+```{r}
+flights_tbl  <- copy_to(sc, nycflights13::flights, "flights") # aqui el codigo para copiar nycflights13::flights a Spark
+airlines_tbl <- copy_to(sc, nycflights13::airlines, "airlines") # aqui el codigo para copiar nycflights13::airlines a Spark
+```
+
+<b>Pregunta:</b>
+
+<b> Cuandos RDD creó el paso arriba? </b> <br>
+Se crearon 2 RDD
+
+<br>
+
+#### Consultas
+ 
+<b>Ejecuta un join sobre spark</b>
 
 ```{r}
 # join (sobre spark) de vuelos y aerolineas
+flights_airlines_tbl <- flights_tbl %>% left_join(airlines_tbl)
+head(flights_airlines_tbl)
 ```
 
-### Ejecuta un group_by sobre spark
+<b>Ejecuta un group_by sobre spark</b>
 
 ```{r}
 # group_by por aerolinea reportando promedio de lo retrasos
+promedio_retrasos <- flights_airlines_tbl %>%
+  group_by(name) %>%
+  summarise(media=mean(dep_delay))
+promedio_retrasos
 ```
 
-pregunta:
+<br>
 
-> Que pasa cuando cierras la sesión y la vuelves a abrir? 
-> estan los resultados que tenias antes aun en tu instancia de Spark? 
-> Explica lo que observas.
-```{r}
-# Standalone connection
-# conf <- spark_config()
-# conf$spark.executor.memory <- "2GB"
-# conf$spark.memory.fraction <- 0.9
-# conf$spark.executor.cores <- 2
-# conf$spark.dynamicAllocation.enabled <- "false"
+#### Preguntas
 
-# sc <- spark_connect(master="spark://master-url:7077", 
-#              version = "2.1.0",
-#              config = conf,
-#              spark_home = "/opt/spark/")
-```
 
-```{r}
-library(sparklyr)
-sc <- spark_connect(master = "local")
-```
+<b>Que pasa cuando cierras la sesión y la vuelves a abrir?</b><br>
+Todos los RDD y el historial de procesos fueron eliminados
+
+<b>Estan los resultados que tenias antes aun en tu instancia de Spark?</b><br>
+No, todo fue eliminado
+
+<b>Explica lo que observas.</b><br>
+
+<p align="justify"> 
+Todas las operaciones que Spark realiza y la información que utiliza se manejan en memoria, la cual es vólatil. Al cerrar las sesión toda la información se elimina de la memoria, pero esta no se guarda en algún dispositivo de almacenamiento para ser utilizada luego, por lo que al levantar la sesión nuevamente, Spark no tiene forma de saber que ocurrió anteriormente, porque su naturaleza define que es una herramienta que trabaja en memoria exclusivamente.
+</p>
+
 
