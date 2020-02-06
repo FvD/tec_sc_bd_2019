@@ -1,0 +1,60 @@
+---
+title: "Tarea 6"
+author: "Curso Big Data TEC"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+## Tarea sesión 6
+
+### Descripción tarea
+En la clase hablamos sobre como aplicar los metodos de estadistica a escala. Uno de los conceptos más dificiles para bajar a tierra fué "datos en movimiento" (**streaming data**). 
+
+El [vignette del paquete stream](https://cran.r-project.org/web/packages/stream/vignettes/stream.pdf) da una introducción a fondo e incluye ejemplos. 
+
+
+## Tarea
+Como tarea, lee el vignette del paquete stream mencionado arriba. Y sique los ejemplos para validar que ejecutan. Si tienes tiempo puedes incluir algunos ejemplos mas que estan descritos por los autores.
+
+
+```{r}
+library(stream)
+set.seed(1000)
+stream <- DSD_Gaussians(k = 3, d = 3, noise = .5, p = c(.5, .3, .1))
+stream
+
+p <- get_points(stream, n = 50)
+p
+```
+
+> Pregunta: que significan los parametros k, d, noise, y p arriba? Para que los
+> puedes usar?
+
+Ahora miramos los datos moviendose
+
+```{r}
+library(animation)
+
+set.seed(1000)
+stream <- DSD_Benchmark(1)
+stream
+
+# abre la pestaña "Plots" a mano si no vez nada al correr las siguientes lineas
+for(i in 1:4) {
+  plot(stream, 250, xlim = c(0, 1), ylim = c(0, 1))
+  tmp <- get_points(stream, n = 1400)
+}
+
+reset_stream(stream)
+animate_data(stream, n = 10000, horizon = 100, xlim = c(0, 1), ylim = c(0, 1))
+animation::ani.options(interval = .1)
+ani.replay()
+```
+
+> Pregunta: Si piensas en cual es el promedio de X2 la respuesta va ser "depende 
+> de cuando miras, y de cuanta historia incluyes". Discute como esto impacta tu 
+> analisis y cuales soluciones le propondrias a un cliente.
+
+
+
