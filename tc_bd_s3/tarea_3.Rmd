@@ -57,7 +57,7 @@ head(flights_airlines_tbl)
 # group_by por aerolinea reportando promedio de lo retrasos
 promedio_retrasos <- flights_airlines_tbl %>%
   group_by(name) %>%
-  summarise(media=mean(dep_delay))
+  summarise(media=mean(dep_delay, na.rm = TRUE))
 promedio_retrasos
 ```
 

@@ -1,17 +1,15 @@
 ---
-title: "Tarea 4"
-author: "Curso Big Data TEC"
-date: "20191214"
+title: "Big Data: Tarea 4"
+author: "Brian Durán"
 output: html_document
 editor_options: 
-  chunk_output_type: console
+  chunk_output_type: inline
 ---
 
-## Tarea sesión 4
-
-### Descripción tarea
+## Descripción
+<p align="justify">
 En la clase vimos varias alternativas locales para parelizar procesos. Hay bastantes blogposts sobre el tema, pero es un poco disperso lo que esta disponible. 
-
+</p>
 El clasico es el paquete parallel, que tiene mucho años (de hecho es parte de base R). Pero hay varias implementaciones mas como:
 
 - [foreach](https://cran.r-project.org/web/packages/foreach/vignettes/foreach.pdf)
@@ -20,42 +18,115 @@ El clasico es el paquete parallel, que tiene mucho años (de hecho es parte de b
 
 Pero hay mas como puedes ver en el [CRAN Task View sobre HPC y Parallel computing](https://cran.r-project.org/web/views/HighPerformanceComputing.html)
 
-## Tarea
 
-La tarea consiste en que evidencies que pudiste correr un proceso en parallelo sobre los datos que usamos en la tarea pasada.
+<p align="justify">
+La tarea consiste en que evidencies que pudiste correr un proceso en parallelo sobre los datos que usamos en la tarea pasada. Puedes usar cualquier paquete y cualquier transformacion sobre los datos. pero tienes que mostrar el tiempo de ejecucion sin paralellizacion y el tiempo con tu solucion paralella en el Rmarkdown (con su HTML) que entregas.
+</p>
 
-Puedes usar cualquier paquete y cualquier transformacion sobre los datos. pero tienes que mostrar el tiempo de ejecucion sin paralellizacion y el tiempo con tu solucion paralella en el Rmarkdown (con su HTML) que entregas.
+<br>
 
-```{r}
+#### Primera implementación
+
+<p align="justify"> 
+Para la primera implementación utilicé la lbrería [multidplyr](https://github.com/tidyverse/multidplyr) que es un backend para **dplyr** que particiona un data frame para procesarlo en múltiples núcleos de un procesador. Como puede verse en los tiempos de ejecución, parece que la implementación paralela en realidad fue más lenta que la ejecución secuencial y esto es algo de lo que hablaré más adelante.
+</p>  
+
+```{r message=FALSE, warning=FALSE}
 library(nycflights13)
-library( ... ) # aqui el paquete que decides usar
+library(multidplyr)
+library(dplyr, warn.conflicts = FALSE)
 
+# Código sin paralelizar
 system.time({
-  
-  # codigo sin paralelizar
-   
+  flight_dest <- flights %>% group_by(dest) %>%
+    mutate(sched_dep_time2=sched_dep_time * 2)
 })
 
+# Código paralelizado
 system.time({
-  
-  # codigo que corre paralelo
-   
+  cluster <- new_cluster(4)
+  flight_dest_parallel <- flights %>% group_by(dest) %>% partition(cluster)
+  flight_dest_parallel %>% 
+    mutate(sched_dep_time2=sched_dep_time * 2) %>% 
+  collect()
 })
 ```
 
-## Segunda implementacion
+<br>
 
-```{r}
-library( ... ) # aqui el segundo paquete que decides usar
+#### Segunda implementación
+
+<p align="justify"> 
+Para la segunda implementación utilicé la lbrería **foreach** en combinación con **doParallel**. Esta última librería provee un backend paralelo para la función **%dopar%** usando el paquete **parallel**.  Como puede verse en los tiempos de ejecución, en esta segunda implementación la ejecución paralela parece que nuevamente tomó más tiempo.
+</p>
+
+
+```{r message=FALSE, warning=FALSE}
+library(foreach)
+library(doParallel)
+library(dplyr) # With other package
+library(nycflights13)
+
+# Código sin paralelizar
+flights_mutate <- flights
+flights_mutate_parallalel <- flights
 
 system.time({
   
-  # codigo sin paralelizar
+  foreach(i = length(flights)) %do% {
+    flights_mutate[i, ] %>% select(sched_dep_time) %>% mutate(sched_dep_time2=sched_dep_time * 2) 
+  }
    
 })
 
+# Código paralelizado
+
 system.time({
-  
-  # codigo que corre paralelo
-   
+  cl <- makeCluster(detectCores())
+  registerDoParallel(cl)
+  # You must indicate .packages parameter.
+  foreach(i = length(flights), .combine=c, .packages=c("dplyr", "nycflights13")) %dopar% {
+    flights_mutate_parallalel[i, ] %>% mutate(sched_dep_time2=sched_dep_time * 2) 
+  }
+  stopCluster(cl)
 })
+```
+
+<br>
+
+### Conclusión
+
+<p align="justify"> 
+En ambas implementaciones realice una modificación de los datos; simplemente creé una nueva columna llamada **sched_dep_time2**, la cual posee el valor de la columan **sched_dep_time** multiplicado por 2. Luego de ver que ambas implementaciones paralelas eran más lentas que sus respectivas ejecuciones secuenciales, decidí hacer una prueba con más datos, para determinar si esto se debía a que el dataset de **vuelos** era muy pequeño para apreciar una mejora utilizando paralelismo. Hice una prueba rápida con un segmento de los datos del gobierno que se utilizaron en la **segunda tarea**. Realice transformaciones similiares a las que hice en esta tarea con dataframes de 500 y 50000 filas.
+</p>
+
+<b>Tiempos de la Ejecución Secuencial</b>
+
+ ![](r_time_non_parallel.png)
+
+<b>Tiempos de la Ejecución Paralela</b>
+
+<p align="justify"> 
+Después de sobrepasar el tiempo de la ejecución secuencial, decidí detener el proceso paralelo, ya que se había demostrado que era más lento.
+</p>
+
+ ![](r_time_parallel.png)
+
+<br>
+
+#### Análisis del uso de recursos
+
+
+<p align="justify"> 
+Luego del análisis anterior la única forma con la cual pude concluir que la ejecución paralela estaba realmente distribuyendo la carga entre varios núcleos, fue observando el uso del CPU en mi computadora durante las transformaciones del dataframe. Con esto una de las conclusiones que obtengo, es que probablemente hay un problema con el tipo de transformación que estoy haciendo, ya que no se vio beneficiado del procesamiento paralelo.
+</p>
+
+
+<b>Uso del CPU durante la Ejecución Secuencial</b>
+
+ ![](cpu_use_non_parallel.png)
+
+<b>Uso del CPU durante la Ejecución Secuencial Paralela</b>
+
+ ![](cpu_use_parallel.png)
+ 
