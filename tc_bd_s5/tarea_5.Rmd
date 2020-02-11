@@ -1,19 +1,18 @@
 ---
-title: "Tarea 5"
-author: "Curso Big Data TEC"
+title: "Big Data: Tarea 5"
+author: "Brian Durán"
 output: html_document
 editor_options: 
   chunk_output_type: console
 ---
 
-## Tarea sesión 5
+## Descripción
 
-### Descripción tarea
+<p align="justify">
 En la clase hablamos sobre definiciones de conceptos, y tratamos de desmenuzar terminos que están comunmente en uso, pero cuya definicion no siempre es tan clara.
 
-## Tarea
-
 Siguiendo el ejercicio que hicimos en grupos en clase (y puedes re-utilizar tus notas) por favor escribe un definicion en tus propias palabras para los siguiente conceptos. Donde aplica, o donde aclara la definicion indica la relación con los demás conceptos.
+</p>
 
  - Business Intelligence
  - Lago de datos
@@ -23,3 +22,48 @@ Siguiendo el ejercicio que hicimos en grupos en clase (y puedes re-utilizar tus 
  - ROLAP
  - ETL
  - Inteligencia Artificial
+ 
+<br>
+ 
+#### Business Intelligence
+<p align="justify">
+Inteligencia de negocios se refiere a las tecnologías, aplicaciones y prácticas para la colección, integración y análisis de información de negocios para la toma de decisiones estratégicas.
+</p>
+
+<br>
+
+#### Lago de Datos
+<p align="justify">
+Un lago de datos es un repositorio en el cual se almacenan datos crudos, los cuales se pueden estar almacenando con un propósito a futuro o simplemente para tenerlos a mano.
+</p>
+
+<br>
+
+#### Ciencia de Datos
+<p align="justify">
+La Ciencia de Datos es una diciplina que unifica conocimientos y técnicas del área de la programación, estadística, análisis de datos y aprendizaje de máquina con el propósito de entender y analizar un fenómeno por medio de datos.
+</p>
+
+<br>
+
+#### Ingeniería de Datos
+<p align="justify">
+La ingenería de datos es la encargada de utilizar técnicas programación y herramientos para análizar y procesar información estructurada y no estructurada con el propósito de refinarla y adecuarla a las necesidades de una empresa o proyecto.
+</p>
+
+<br>
+
+#### Big Data
+<p align="justify">
+Un conjunto de datos extremadamente largo, el cual sobrepasa la capacidad computacional disponible, el cual se utiliza para revelar patrones, tendencias y asociaciones especialmente relacionados con comportamiento humano o interacciones.
+</p>
+
+<br>
+
+#### ROLAP
+<p align="justify">
+
+</p>
+
+
+
