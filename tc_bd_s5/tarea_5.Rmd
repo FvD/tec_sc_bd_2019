@@ -62,8 +62,23 @@ Un conjunto de datos extremadamente largo, el cual sobrepasa la capacidad comput
 
 #### ROLAP
 <p align="justify">
-
+Esta metodología se basa en la manipulación de datos almacenados en una base de datos relacional para dar la apariencia de la funcionalidad tradicional de una estructura OLAP.
 </p>
+
+<br>
+
+#### ETL
+<p align="justify">
+Se refiere a un proceso que involucra tres pasos, extraer, trasformar y cargar información el cual se utiliza normalmente para crear un data warehouse.
+</p>
+
+<br>
+
+#### Inteligencia Artificial
+<p align="justify">
+La inteligencia artificial es la simulación de procesos del cerebro humano por parte de máquinas, especialmente sistemas informáticos. Estos procesos incluyen el aprendizaje, el razonamiento y la autocorrección
+</p>
+
 
 
 
