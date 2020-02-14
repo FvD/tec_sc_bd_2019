@@ -27,7 +27,7 @@ Siguiendo el ejercicio que hicimos en grupos en clase (y puedes re-utilizar tus 
  
 #### Business Intelligence
 <p align="justify">
-Inteligencia de negocios se refiere a las tecnologías, aplicaciones y prácticas para la colección, integración y análisis de información de negocios para la toma de decisiones estratégicas.
+Inteligencia de negocios se refiere a las tecnologías, aplicaciones y prácticas para la recolección, integración y análisis de información de negocios para la toma de decisiones estratégicas.
 </p>
 
 <br>
@@ -55,7 +55,7 @@ La ingenería de datos es la encargada de utilizar técnicas programación y her
 
 #### Big Data
 <p align="justify">
-Un conjunto de datos extremadamente largo, el cual sobrepasa la capacidad computacional disponible, el cual se utiliza para revelar patrones, tendencias y asociaciones especialmente relacionados con comportamiento humano o interacciones.
+Un conjunto de datos extremadamente largo, el cual sobrepasa la capacidad computacional disponible. Dichos datos se utilizan para revelar patrones, tendencias y asociaciones especialmente relacionados con el comportamiento humano o interacciones.
 </p>
 
 <br>
@@ -69,7 +69,7 @@ Esta metodología se basa en la manipulación de datos almacenados en una base d
 
 #### ETL
 <p align="justify">
-Se refiere a un proceso que involucra tres pasos, extraer, trasformar y cargar información el cual se utiliza normalmente para crear un data warehouse.
+Se refiere a un proceso que involucra tres pasos, extraer, trasformar y cargar información. Dicho proceso se utiliza normalmente para crear un data warehouse.
 </p>
 
 <br>
