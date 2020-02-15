@@ -1,0 +1,28 @@
+---
+title: "Tarea 6"
+author: "Curso Big Data TEC"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+## Tarea sesión 7
+
+### Descripción tarea
+En la clase hablamos sobre como aplicar los metodos de machine learning a escala. Ya conocemos varios *frameworks* para hacerlo, y hemos visto que en R tenemos interfaces a ellas que nos faciliten usarlos al analisar nuestros datos. 
+
+
+Para poner en practica lo que vimos en teoria en la Sesion 7, en este ejercicio pedimois que apliquen algun metodo de MLLib de Spark a los datos de vuelos (flights) que hemos usado antes en las tareas 3 y 4
+
+
+## Usar MLlib de Spark
+En este ejercicio tienes mucha libertad para ejecutarlo de la forma que te parece mejor. La clave es que el codigo corra contra los datos que estan en `nycflights13` y que entregues el html que resulta de tu Rmd con tu resultado. Como siempre generas este html apretando "knit" arriba. Si hay un error, resuelvelo antes de entregra la tarea.
+
+```{r}
+library(nycflights13)
+
+# aqui tu codigo para aplicar uno de los metodos de machine learning disponibles
+# en MLLib a los datos
+
+```
+
